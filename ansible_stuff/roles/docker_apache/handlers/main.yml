@@ -1,0 +1,3 @@
+---
+- name: syslog-ng restart 
+  command: service syslog-ng restart

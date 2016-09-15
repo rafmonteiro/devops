@@ -1,0 +1,24 @@
+---
+- name: Docker repo
+  copy: src=docker.repo
+        dest="{{ docker_repo_yum}}"
+        owner=root group=root mode=0644
+
+- name: Install Docker and others
+  yum: name={{ item.package }} 
+       state=latest
+  with_items: "{{ docker_packages }}"
+- name: Install docker-PY
+  pip:
+    name: "{{item}}"
+  with_items:
+   - six==1.4
+   - docker-py==1.2.1
+
+- name: start docker daemon
+  service: name=docker state=started
+  
+
+#- name: Create custom network
+#  command: docker network create --subnet="{{ docker_network_range }}" "{{ docker_network_name }}"
+#  tags: dockernet

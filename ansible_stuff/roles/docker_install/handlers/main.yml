@@ -1,0 +1,3 @@
+---
+- name: docker restart 
+  command: service docker restart

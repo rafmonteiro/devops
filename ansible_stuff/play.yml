@@ -1,0 +1,10 @@
+---
+- hosts: icinga
+  user: root
+  roles:
+   - role: icinga_setup  
+   - role: syslog-ng
+   - role: docker_install
+   - role: docker_mysql
+   - role: docker_apache
+   - role: ansible-aws-cli

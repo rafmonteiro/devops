@@ -1,0 +1,10 @@
+---
+mysql_base_name: mysql
+mysql_base_tag: "latest"
+mysql_build_dir: /tmp/mysql
+mysql_extra_tag: latest
+mysql_image_name: mysql
+mysql_root_password: "password"
+docker_network_name: "dockernet"
+mysql_ip: "172.20.0.10"
+

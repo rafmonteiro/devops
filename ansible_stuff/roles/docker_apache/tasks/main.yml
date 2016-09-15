@@ -1,0 +1,34 @@
+---
+- name: build directory
+  file: dest=/tmp/apache state=directory
+
+- name: directory for mysql logs
+  file: dest=/data/logs/apache state=directory
+
+- name: Copying Apache files
+  copy: src={{item}} dest=/tmp/apache/{{item}}
+  with_items:
+    - 000-default.conf
+    - index.php
+    - Dockerfile
+
+- name: Build Apache Container
+  command: docker build -t rafaelthedevops/apache /tmp/apache
+# made this way just to show diferent ways to run a container
+# - name: start docker apache 
+#  docker:
+#    name: apache
+#    image: rafaelthedevops/apache
+#    ports:
+#    - "8080:80"
+#    links: 
+#    - mysql:mysql
+#    devices: "/data/logs/apache:/var/log/httpd:rwm"  
+#    state: reloaded
+#    log_driver: syslog
+#    log_opt:
+#      syslog-address: udp://{{ syslog_host }}:514
+#      syslog-facility: daemon
+#      syslog-tag: apachedocker
+- name: Start Apache Container 
+  command: "docker run -d -p 8080:80 --link mysql:mysql -v /data/logs/apache:/var/log/apache2 --name  apache rafaelthedevops/apache"

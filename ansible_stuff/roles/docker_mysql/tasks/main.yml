@@ -1,0 +1,25 @@
+---
+- name: build directory
+  file: dest="{{ mysql_build_dir }}" state=directory
+
+- name: persistence directory por DB
+  file: dest=/data/mysql state=directory
+
+- name: directory for mysql logs
+  file: dest=/data/logs/mysql state=directory
+
+- name: Copy Dockerfile
+  copy: src="Dockerfile" dest="/tmp/mysql/Dockerfile"
+
+- name: Copy script 
+  copy: src="startup.sh" dest="{{ mysql_build_dir }}/startup.sh"
+  
+- name: Copy syslog-ng
+  copy: src="syslog-ng.conf" dest="{{ mysql_build_dir }}/syslog-ng.conf"
+
+- name: build 
+  command: docker build -t rafaelthedevops/mysql /tmp/mysql
+# made this way just to show diferent ways to run a container
+- name: run mysql server inside a docker container
+  command: "docker run -d --restart=always --name mysql -p 43306:3306 -v /data/mysql:/var/lib/mysql -v /data/logs/mysql:/var/log/mysql rafaelthedevops/mysql"
+  tags: mysqldocker

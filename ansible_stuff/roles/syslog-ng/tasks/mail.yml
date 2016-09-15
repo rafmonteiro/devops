@@ -1,0 +1,10 @@
+---
+
+- name: install syslog-ng
+  yum: name=syslog-ng state=present
+
+- name: copy log file
+  copy: src=syslog-ng.conf dest=/etc/syslog-ng
+
+- name: restart syslog-ng
+  service: name=syslog-ng state=restarted

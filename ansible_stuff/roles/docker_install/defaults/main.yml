@@ -1,0 +1,11 @@
+---
+docker_repo_yum: "/etc/yum.repos.d/docker.repo"
+
+docker_packages:
+ - { package: "epel-release" }
+ - { package: "docker-engine" }
+ - { package: "python" }
+ - { package: "python-pip" }
+
+docker_network_name: "dockernet"
+docker_network_range: "172.20.0.0/16"

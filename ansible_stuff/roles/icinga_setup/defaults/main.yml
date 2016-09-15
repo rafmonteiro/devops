@@ -1,0 +1,14 @@
+---
+# defaults file for icinga_setup
+icinga2_web_db_dbuser: "icinga_web"
+icinga2_web_mysql_schema: "/usr/share/doc/icinga-web-1.13.0/schema/mysql.sql" 
+icinga2_ido_mysql_conf_global:
+ - { directive: 'user = "icinga"' }
+ - { directive: 'password = "icinga"' }
+ - { directive: 'host = "localhost"' }
+ - { directive: 'database = "icinga"' }
+
+php_timezone: America/Recife
+mysql_root_password: password
+user: icinga
+password: icinga
